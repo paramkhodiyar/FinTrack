@@ -80,9 +80,8 @@ const getTrends = async (filters = {}) => {
     orderBy: { date: 'asc' },
   });
 
-  // Group by day for more detailed line charts
   const trends = data.reduce((acc, curr) => {
-    const period = curr.date.toISOString().substring(0, 10); // YYYY-MM-DD
+    const period = curr.date.toISOString().substring(0, 10);
     if (!acc[period]) {
       acc[period] = { period, income: 0, expense: 0 };
     }

@@ -69,7 +69,7 @@ export default function DashboardPage() {
 
   useEffect(() => {
     if (!isMounted || !user) return;
-    
+
     const fetchData = async () => {
       setLoading(true);
       try {
@@ -110,8 +110,6 @@ export default function DashboardPage() {
   const COLORS = ['#2563eb', '#16a34a', '#dc2626', '#f59e0b', '#8b5cf6', '#ec4899'];
 
   const formatRupee = (value: number) => `₹${value.toLocaleString('en-IN')}`;
-
-  // Trend Chart
   const trendData = {
     labels: trends.map(t => t.period),
     datasets: [
@@ -161,7 +159,6 @@ export default function DashboardPage() {
     }
   };
 
-  // Category Chart
   const categoryData = {
     labels: categories.map(c => c.categoryName),
     datasets: [
@@ -191,7 +188,6 @@ export default function DashboardPage() {
     }
   };
 
-  // Department Bar Chart
   const departmentData = {
     labels: departments.map(d => d.departmentName),
     datasets: [
@@ -234,8 +230,8 @@ export default function DashboardPage() {
           <p className="text-gray-500">Your financial summary and recent insights.</p>
         </div>
         <div className="w-48">
-          <Select 
-            value={periodFilter} 
+          <Select
+            value={periodFilter}
             onChange={(e) => setPeriodFilter(e.target.value)}
             options={[
               { label: 'Today', value: 'TODAY' },
@@ -304,9 +300,9 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent className="h-80 relative">
             {trends.length > 0 ? (
-               <Line data={trendData} options={trendOptions} />
+              <Line data={trendData} options={trendOptions} />
             ) : (
-               <div className="flex h-full items-center justify-center text-gray-500">No trend data available.</div>
+              <div className="flex h-full items-center justify-center text-gray-500">No trend data available.</div>
             )}
           </CardContent>
         </Card>
@@ -317,13 +313,13 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent className="h-80 relative flex justify-center">
             {categories.length > 0 ? (
-                <Doughnut data={categoryData} options={categoryOptions} />
+              <Doughnut data={categoryData} options={categoryOptions} />
             ) : (
-                <div className="flex h-full items-center justify-center text-gray-500">No category breakdown available.</div>
+              <div className="flex h-full items-center justify-center text-gray-500">No category breakdown available.</div>
             )}
           </CardContent>
         </Card>
-        
+
         {hasRole(['ADMIN', 'ANALYST']) && (
           <Card className="lg:col-span-2">
             <CardHeader>
@@ -331,9 +327,9 @@ export default function DashboardPage() {
             </CardHeader>
             <CardContent className="h-80 relative">
               {departments.length > 0 ? (
-                 <Bar data={departmentData} options={departmentOptions} />
+                <Bar data={departmentData} options={departmentOptions} />
               ) : (
-                 <div className="flex h-full items-center justify-center text-gray-500">No department data available.</div>
+                <div className="flex h-full items-center justify-center text-gray-500">No department data available.</div>
               )}
             </CardContent>
           </Card>

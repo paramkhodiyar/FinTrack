@@ -47,9 +47,21 @@ const deleteRecord = async (req, res) => {
   }
 };
 
+const getRecordById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { role, departmentId } = req.user;
+    const data = await recordService.getRecordById(id, role, departmentId);
+    return successResponse(res, data, 'Record fetched successfully');
+  } catch (error) {
+    return errorResponse(res, error, 404);
+  }
+};
+
 module.exports = {
   createRecord,
   getRecords,
+  getRecordById,
   approveRecord,
   deleteRecord,
 };

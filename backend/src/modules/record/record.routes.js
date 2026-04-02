@@ -8,6 +8,7 @@ router.use(authMiddleware);
 
 router.post('/', roleMiddleware(['ADMIN', 'ENTRY_RECORDER']), recordController.createRecord);
 router.get('/', roleMiddleware(['ADMIN', 'ANALYST', 'USER', 'ENTRY_RECORDER']), recordController.getRecords);
+router.get('/:id', roleMiddleware(['ADMIN', 'ANALYST', 'USER', 'ENTRY_RECORDER']), recordController.getRecordById);
 router.patch('/:id/approve', roleMiddleware(['ADMIN']), recordController.approveRecord);
 router.delete('/:id', roleMiddleware(['ADMIN']), recordController.deleteRecord);
 

@@ -9,11 +9,10 @@ const successResponse = (res, data = null, message = 'Success', statusCode = 200
 const errorResponse = (res, errorOrMessage = 'Internal Server Error', statusCode = 500, errors = null) => {
   let message = typeof errorOrMessage === 'string' ? errorOrMessage : errorOrMessage?.message || 'Internal Server Error';
 
-  // Handle Prisma errors generically if entire error object is passed or code is attached
   if (typeof errorOrMessage === 'object' && errorOrMessage !== null) {
     if (errorOrMessage.code === 'P2002') {
       message = 'Unique constraint violation. A record with this value already exists.';
-      statusCode = 400; // Overwrite status to Bad Request for validation issue
+      statusCode = 400; 
     } else if (errorOrMessage.code === 'P2003') {
       message = 'Foreign key constraint violated. The referenced record does not exist.';
       statusCode = 400;

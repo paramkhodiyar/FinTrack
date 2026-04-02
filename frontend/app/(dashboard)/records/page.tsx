@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
 import api from '../../../lib/api';
 import { Table, ColumnDef } from '../../../components/ui/Table';
 import { Badge } from '../../../components/ui/Badge';
@@ -24,12 +25,10 @@ interface Record {
 
 export default function RecordsPage() {
   const [records, setRecords] = useState<Record[]>([]);
-  const [categories, setCategories] = useState<{id: string, name: string}[]>([]);
+  const [categories, setCategories] = useState<{ id: string, name: string }[]>([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { hasRole, user } = useAuth();
-
-  // Form State
   const [amount, setAmount] = useState('');
   const [nature, setNature] = useState('EXPENSE');
   const [categoryId, setCategoryId] = useState('');
@@ -136,16 +135,19 @@ export default function RecordsPage() {
       key: 'actions',
       label: 'Actions',
       render: (r) => {
-        // Only ADMIN can approve/reject
-        if (hasRole(['ADMIN']) && r.status === 'PENDING') {
-          return (
-            <div className="flex space-x-2">
-              <Button variant="primary" onClick={() => handleStatusUpdate(r.id, 'APPROVED')} className="py-1 px-2 text-xs">Approve</Button>
-              <Button variant="danger" onClick={() => handleStatusUpdate(r.id, 'REJECTED')} className="py-1 px-2 text-xs">Reject</Button>
-            </div>
-          );
-        }
-        return <span className="text-gray-400 text-xs">No actions</span>;
+        return (
+          <div className="flex space-x-2 items-center">
+            <Link href={`/records/${r.id}`}>
+              <Button variant="secondary" className="py-1 px-2 text-xs border border-gray-300">View</Button>
+            </Link>
+            {hasRole(['ADMIN']) && r.status === 'PENDING' && (
+              <>
+                <Button variant="primary" onClick={() => handleStatusUpdate(r.id, 'APPROVED')} className="py-1 px-2 text-xs">Approve</Button>
+                <Button variant="danger" onClick={() => handleStatusUpdate(r.id, 'REJECTED')} className="py-1 px-2 text-xs">Reject</Button>
+              </>
+            )}
+          </div>
+        );
       },
     },
   ];
@@ -173,18 +175,18 @@ export default function RecordsPage() {
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Add Record">
         <form onSubmit={handleCreateRecord} className="space-y-4">
           <Input label="Amount" type="number" step="0.01" value={amount} onChange={(e) => setAmount(e.target.value)} required />
-          <Select 
-            label="Type" 
-            value={nature} 
+          <Select
+            label="Type"
+            value={nature}
             onChange={(e) => setNature(e.target.value)}
             options={[
               { label: 'EXPENSE', value: 'EXPENSE' },
               { label: 'INCOME', value: 'INCOME' }
             ]}
           />
-          <Select 
-            label="Category" 
-            value={categoryId} 
+          <Select
+            label="Category"
+            value={categoryId}
             onChange={(e) => setCategoryId(e.target.value)}
             options={categories.map(c => ({ label: c.name, value: c.id }))}
             placeholder="Select Category"

@@ -25,8 +25,6 @@ export default function UsersPage() {
   const [departments, setDepartments] = useState<{id: string, name: string}[]>([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  // Form State
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

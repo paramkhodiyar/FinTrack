@@ -13,12 +13,10 @@ export default function DashboardLayout({
 }) {
   const { isMounted, user } = useAuth();
 
-  // Show nothing while mounting to prevent hydration mismatch or flashing
   if (!isMounted) {
-    return null; 
+    return null;
   }
 
-  // If not authenticated, the useAuth hook will redirect. Show loading meanwhile.
   if (!user) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">

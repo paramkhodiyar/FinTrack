@@ -4,7 +4,7 @@ const createBudget = async (data) => {
   return prisma.budget.create({
     data: {
       amount: parseFloat(data.amount),
-      period: data.period, // e.g. "MONTHLY"
+      period: data.period,
       startDate: new Date(data.startDate),
       endDate: new Date(data.endDate),
       categoryId: data.categoryId || null,

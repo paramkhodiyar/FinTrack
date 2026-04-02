@@ -22,7 +22,7 @@ export default function LoginPage() {
       toast.error('Please enter both email and password');
       return;
     }
-    
+
     setLoading(true);
     try {
       const response = await api.post('/auth/login', { email, password });
@@ -32,7 +32,6 @@ export default function LoginPage() {
         router.push('/dashboard');
       }
     } catch (error) {
-      // Error handled globally via interceptor optionally, but specific handling here
       console.error(error);
     } finally {
       setLoading(false);
@@ -51,18 +50,18 @@ export default function LoginPage() {
       </CardHeader>
       <form onSubmit={handleLogin}>
         <CardContent className="space-y-4">
-          <Input 
-            label="Email Address" 
-            type="email" 
+          <Input
+            label="Email Address"
+            type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@email.com"
             required
             autoComplete="email"
           />
-          <Input 
-            label="Password" 
-            type="password" 
+          <Input
+            label="Password"
+            type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="••••••••"

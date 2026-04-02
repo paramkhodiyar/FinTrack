@@ -67,9 +67,32 @@ const deleteRecord = async (recordId) => {
   });
 };
 
+const getRecordById = async (recordId, userRole, userDepartmentId) => {
+  const record = await prisma.record.findUnique({
+    where: { id: recordId },
+    include: {
+      category: true,
+      department: true,
+      createdBy: { select: { id: true, name: true, email: true } },
+      approvedBy: { select: { id: true, name: true } },
+    },
+  });
+
+  if (!record) {
+    throw new Error('Record not found');
+  }
+
+  if (userRole === 'USER' && record.departmentId !== userDepartmentId) {
+    throw new Error('Access denied to this department record');
+  }
+
+  return record;
+};
+
 module.exports = {
   createRecord,
   getRecords,
+  getRecordById,
   updateRecordStatus,
   deleteRecord,
 };
