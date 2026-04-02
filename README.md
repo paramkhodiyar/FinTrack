@@ -39,7 +39,7 @@ cd frontend
 npm install
 npm run dev
 ```
-> The Next.js dashboard boots on `http://localhost:3000`
+> The Next.js dashboard boots on `https://fintrackhqsys.vercel.app` (Production), or `http://localhost:3000` locally.
 
 ---
 
