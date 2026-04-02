@@ -96,5 +96,7 @@ npm run dev
 Thank you for checking out FinTrack! I designed this repository aiming to merge clean UX/UI aesthetic practices with robust enterprise-level logical routing pipelines. 
 
 **Param Khodiyar** 
+*   📧 **Email:** [paramkhodiyar1008@gmail.com]
+*   **Portfolio:** [paramkhodiyar.com](https://paramkhodiyar.vercel.app)
 *   🐙 **GitHub:** [github.com/paramkhodiyar](https://github.com/paramkhodiyar)
 *   👔 **LinkedIn:** [linkedin.com/in/paramkhodiyar](https://www.linkedin.com/in/paramkhodiyar/)
