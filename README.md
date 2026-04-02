@@ -30,7 +30,7 @@ cd backend
 npm install
 npm run dev
 ```
-> The backend REST API boots on `http://localhost:8080/api`
+> The backend REST API boots on `https://fintrack-iire.onrender.com/api` (Production), or `http://localhost:8080/api` locally.
 
 ### 2. Frontend Interface
 Navigate to the frontend directory, install dependencies, and launch the dev server.

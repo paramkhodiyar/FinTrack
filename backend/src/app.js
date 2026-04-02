@@ -10,7 +10,14 @@ const budgetRoutes = require('./modules/budget/budget.routes');
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: [
+    'https://fintrackhqsys.vercel.app',
+    `http://localhost:${process.env.PORT || 8080}`,
+    `http://localhost:${process.env.PORT || 3001}`
+  ],
+  credentials: true
+}));
 app.use(express.json());
 
 app.use('/api/auth', authRoutes);
