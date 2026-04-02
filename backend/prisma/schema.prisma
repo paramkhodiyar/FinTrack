@@ -1,0 +1,115 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  ADMIN
+  ENTRY_RECORDER
+  ANALYST
+  USER
+}
+
+enum RecordNature {
+  INCOME
+  EXPENSE
+}
+
+enum RecordStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model User {
+  id           String      @id @default(uuid())
+  name         String
+  email        String      @unique
+  password     String
+  role         Role
+  departmentId String?
+  department   Department? @relation(fields: [departmentId], references: [id])
+  isActive     Boolean     @default(true)
+  createdAt    DateTime    @default(now())
+
+  createdRecords  Record[] @relation("CreatedRecords")
+  approvedRecords Record[] @relation("ApprovedRecords")
+}
+
+model Department {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  createdAt DateTime @default(now())
+
+  users   User[]
+  records Record[]
+  budgets Budget[]
+}
+
+model Category {
+  id     String       @id @default(uuid())
+  name   String
+  nature RecordNature
+
+  parentId String?
+  parent   Category?  @relation("CategoryHierarchy", fields: [parentId], references: [id])
+  children Category[] @relation("CategoryHierarchy")
+
+  createdAt DateTime @default(now())
+
+  records Record[]
+  budgets Budget[]
+}
+
+model Record {
+  id         String       @id @default(uuid())
+  amount     Float
+  nature     RecordNature
+  categoryId String?
+  category   Category?    @relation(fields: [categoryId], references: [id])
+
+  departmentId String
+  department   Department @relation(fields: [departmentId], references: [id])
+
+  status RecordStatus @default(PENDING)
+
+  date  DateTime
+  notes String?
+
+  createdById String
+  createdBy   User   @relation("CreatedRecords", fields: [createdById], references: [id])
+
+  approvedById String?
+  approvedBy   User?   @relation("ApprovedRecords", fields: [approvedById], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([departmentId])
+  @@index([categoryId])
+  @@index([date])
+  @@index([nature])
+  @@index([status])
+}
+
+model Budget {
+  id           String     @id @default(uuid())
+  departmentId String
+  department   Department @relation(fields: [departmentId], references: [id])
+
+  categoryId String?
+  category   Category? @relation(fields: [categoryId], references: [id])
+
+  amount    Float
+  period    String // e.g. "MONTHLY", "YEARLY"
+  startDate DateTime
+  endDate   DateTime
+
+  createdAt DateTime @default(now())
+
+  @@index([departmentId])
+  @@index([categoryId])
+}
