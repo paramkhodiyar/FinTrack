@@ -96,6 +96,10 @@ npm run dev
 Thank you for checking out FinTrack! I designed this repository aiming to merge clean UX/UI aesthetic practices with robust enterprise-level logical routing pipelines. 
 
 **Param Khodiyar** 
+
+I’m a developer focused on building scalable and well-structured applications with clean architecture. I enjoy working on backend systems, API design, and creating solutions that are both efficient and maintainable.
+
+FinTrack reflects my approach to combining solid engineering principles with practical, real-world problem solving.
 *   📧 **Email:** [paramkhodiyar1008@gmail.com]
 *   **Portfolio:** [paramkhodiyar.com](https://paramkhodiyar.vercel.app)
 *   🐙 **GitHub:** [github.com/paramkhodiyar](https://github.com/paramkhodiyar)
